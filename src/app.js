@@ -54,7 +54,6 @@ app.use(session({
     store: new fileStore()
 }));
 
-
 // PASSPORT - 전용 middleware 추가
 app.use(passport.initialize());
 app.use(passport.session());
@@ -76,6 +75,10 @@ passport.use(new GoogleStrategy({
     callbackURL: googleCredentials.web.redirect_urls[0]
 }, function(accessToken, refreshToken, profile, done) {
     console.log(profile);
+
+    
+    console.log(profile.displayName);
+
     let user = db.find(userInfo => userInfo.email === profile.emails[0].value);
     if(user) {
         user.provider = profile.provider;
@@ -117,11 +120,13 @@ app.get('/', (req, res) => {
 // passport 패키지로 인해 req.logout()으로 로그아웃 기능 구현 가능
 app.get('/auth/logout', (req, res, next) => {
     req.session.destroy((err) => {
-        if(err) next(err);
         req.logout();
         res.cookie(`connect.sid`, ``, {maxAge:0});
         res.redirect('/');
     });
+        
+
+
 });
 
 app.use((err, req, res, next) => {
@@ -155,8 +160,7 @@ const getPage = (title, description, auth) => {
 }
 
 
-
-app.listen(3030, () => console.log('http://localhost:3030'));
+app.listen(3030, () => console.log(`http://localhost:${PORT}`));
 
 
 // test
