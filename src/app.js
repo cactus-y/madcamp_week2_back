@@ -1,30 +1,26 @@
 const router = require('./routes');
+const mongoose = require('mongoose');
 const express = require('express');
 const session = require('express-session');
 const fileStore = require('session-file-store')(session);
 const passport = require('passport'),
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-const mongoose = require('mongoose');
-const dotenv = require('dotenv').config();
+// 환경 변수
+require("dotenv").config();
+const { CLIENT_ID, CLIENT_SECRET, MONGO_DB_URL } = process.env;
 
-const { PORT, MONGO_DB_URL, CLIENT_ID, CLIENT_SECRET } = process.env;
+// MongoDB 연결
+mongoose.connect(MONGO_DB_URL)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 
 const app = express();
-const port = 3030;
-
-mongoose.connect(MONGO_DB_URL);
-
-var db1 = mongoose.connection;
-
-db1.on('error', function() {
-    console.log('Connection failed!');
-});
-
-db1.on('open', function() {
-    console.log('Connected!');
-});
-
 let db = [{
     id: '1',
     email: 'test01@google.com',
@@ -160,7 +156,8 @@ const getPage = (title, description, auth) => {
 }
 
 
-app.listen(3030, () => console.log(`http://localhost:${PORT}`));
+app.use("/", router);
+app.listen(3030, () => console.log('http://localhost:3030'));
 
 
 // test
@@ -170,7 +167,7 @@ app.listen(3030, () => console.log(`http://localhost:${PORT}`));
 // });
   
 // app.use(express.json());
-// app.use("/", router);
 // app.listen(port, () => {
 //     console.log(`server is listening at localhost:${port}`);
 // });
+
