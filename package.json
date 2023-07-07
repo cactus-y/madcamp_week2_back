@@ -1,0 +1,31 @@
+{
+  "name": "madcamp_week2_back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start:dev": "nodemon --watch \"./src/**/*.*\" --exec babel-node ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cactus-y/madcamp_week2_back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cactus-y/madcamp_week2_back/issues"
+  },
+  "homepage": "https://github.com/cactus-y/madcamp_week2_back#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.6",
+    "@babel/node": "^7.22.6",
+    "nodemon": "^2.0.22"
+  }
+}
