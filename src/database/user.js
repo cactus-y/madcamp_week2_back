@@ -1,4 +1,5 @@
 const { User } = require("./schema");
+const { getImageUrl } = require('../utils/image')
 
 const createUser = async (data) => {
     const user = await User.create(data);
@@ -12,7 +13,13 @@ const findUserWithEmail = async (email) => {
 
 const findUserWithId = async (id) => {
     const user = await User.findById(id);
-    return user;
+    return {
+        id: user.id,
+        nickname: user.nickname,
+        gender: user.gender,
+        profileImage: getImageUrl(user.profile_image),
+        musicGenre: JSON.parse(user.music_genre)
+    };
 }
 
 const findUserWithNickname = async (nickname) => {

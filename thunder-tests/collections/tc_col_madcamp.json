@@ -24,6 +24,20 @@
             "containerId": "",
             "created": "2023-07-08T07:30:04.932Z",
             "sortNum": 30000
+        },
+        {
+            "_id": "884759c8-2d7b-4a39-8223-9dac72a43acb",
+            "name": "Board",
+            "containerId": "",
+            "created": "2023-07-08T08:07:55.532Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "472080ea-23d3-4732-9fed-d4439893c8e0",
+            "name": "Guest",
+            "containerId": "",
+            "created": "2023-07-08T10:52:00.883Z",
+            "sortNum": 50000
         }
     ],
     "requests": [
@@ -36,12 +50,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2023-07-08T02:04:05.183Z",
-            "modified": "2023-07-08T02:07:20.050Z",
+            "modified": "2023-07-08T08:34:25.561Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"idToken\": \"\",\n  \"email\": \"\"\n}",
+                "raw": "{\n  \"idToken\": \"\",\n  \"email\": \"test@gmail.com\"\n}",
                 "form": []
             },
             "tests": [],
@@ -142,6 +156,149 @@
                     "isPath": false
                 }
             ],
+            "tests": []
+        },
+        {
+            "_id": "227aa617-d291-4c6b-9a96-b3499d7c6708",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "884759c8-2d7b-4a39-8223-9dac72a43acb",
+            "name": "Get Board List By Karaoke Id",
+            "url": "http://localhost:3030/board/list?karaokeId=64a9136c23cedd47ea26700e",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-07-08T08:08:06.503Z",
+            "modified": "2023-07-08T11:12:31.329Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "karaokeId",
+                    "value": "64a9136c23cedd47ea26700e",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "c9c42b14-c7e7-4275-b543-57e710f7e538",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "884759c8-2d7b-4a39-8223-9dac72a43acb",
+            "name": "Create Board",
+            "url": "http://localhost:3030/board",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-07-08T08:23:42.056Z",
+            "modified": "2023-07-08T11:12:45.836Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSldUIiwidXNlcklkIjoiNjRhOTAyZjc5YWUwYjJlMGM5OGRiYzk3IiwiaWF0IjoxNjg4ODA1MjY1LCJpc3MiOiJtYWRjYW1wIn0.7y807vdq1tGKNu8RQPK6ExJb7I0hwrZ4KUBdu3UnH_0"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"content\": \"test22\",\n  \"karaokeId\": \"64a9136c23cedd47ea26700e\",\n  \"deadline\": \"2023-08-08T09:00:00\"\n}",
+                "form": []
+            },
+            "tests": [],
+            "docs": "`Authorization` 헤더를 반드시 추가해야 합니다. (형식: `Bearer {token}`)"
+        },
+        {
+            "_id": "54985914-b017-4711-9402-34467417f03e",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "884759c8-2d7b-4a39-8223-9dac72a43acb",
+            "name": "Edit Board",
+            "url": "http://localhost:3030/board/64a947aaabaf771e6c6451bf",
+            "method": "PATCH",
+            "sortNum": 80000,
+            "created": "2023-07-08T10:04:44.663Z",
+            "modified": "2023-07-08T11:34:24.991Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSldUIiwidXNlcklkIjoiNjRhOTAyZjc5YWUwYjJlMGM5OGRiYzk3IiwiaWF0IjoxNjg4ODA1MjY1LCJpc3MiOiJtYWRjYW1wIn0.7y807vdq1tGKNu8RQPK6ExJb7I0hwrZ4KUBdu3UnH_0"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"content\": \"test22\",\n  \"karaokeId\": \"64a9136c23cedd47ea26700e\",\n  \"deadline\": \"2023-08-09T09:00:00\"\n}",
+                "form": []
+            },
+            "tests": [],
+            "docs": "`Authorization` 헤더를 반드시 추가해야 합니다. (형식: `Bearer {token}`)"
+        },
+        {
+            "_id": "70446f9e-d616-4275-bceb-d7799e3bdc79",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "472080ea-23d3-4732-9fed-d4439893c8e0",
+            "name": "Create Guest",
+            "url": "http://localhost:3030/guest",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2023-07-08T10:52:12.718Z",
+            "modified": "2023-07-08T11:34:38.597Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSldUIiwidXNlcklkIjoiNjRhOTAyZjc5YWUwYjJlMGM5OGRiYzk3IiwiaWF0IjoxNjg4ODA1MjY1LCJpc3MiOiJtYWRjYW1wIn0.7y807vdq1tGKNu8RQPK6ExJb7I0hwrZ4KUBdu3UnH_0"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"boardId\": \"64a947aaabaf771e6c6451bf\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e5a11cc0-ed97-47ec-8477-d172be2137ea",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "472080ea-23d3-4732-9fed-d4439893c8e0",
+            "name": "Get Guest List By Board Id",
+            "url": "http://localhost:3030/guest/list?boardId=64a947aaabaf771e6c6451bf&accepted=true",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-07-08T11:18:03.930Z",
+            "modified": "2023-07-08T11:34:58.844Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "boardId",
+                    "value": "64a947aaabaf771e6c6451bf",
+                    "isPath": false
+                },
+                {
+                    "name": "accepted",
+                    "value": "true",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "10799130-12e8-4064-80ba-524f732a7e44",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "472080ea-23d3-4732-9fed-d4439893c8e0",
+            "name": "Accept Guest",
+            "url": "http://localhost:3030/guest/accept",
+            "method": "PATCH",
+            "sortNum": 120000,
+            "created": "2023-07-08T11:31:08.650Z",
+            "modified": "2023-07-08T11:35:02.716Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSldUIiwidXNlcklkIjoiNjRhOTAyZjc5YWUwYjJlMGM5OGRiYzk3IiwiaWF0IjoxNjg4ODA1MjY1LCJpc3MiOiJtYWRjYW1wIn0.7y807vdq1tGKNu8RQPK6ExJb7I0hwrZ4KUBdu3UnH_0"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"boardId\": \"64a947aaabaf771e6c6451bf\",\n  \"guestId\": \"64a902f79ae0b2e0c98dbc97\"\n}",
+                "form": []
+            },
             "tests": []
         }
     ]

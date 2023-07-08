@@ -71,7 +71,6 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
             .status(400)
             .json({ success: false, message: 'KAKAO API 조회 실패', error });
     }
-})
-
+});
 
 module.exports = router;
