@@ -15,7 +15,7 @@ router.post('/login/google', async (req, res, next) => {
         if (user) {
             const payload = {
                 type: 'JWT',
-                unum: user.id,
+                userId: user.id,
             };
             const token = jwt.sign(payload, SECRET_KEY, {
                 issuer: ISSUER,
