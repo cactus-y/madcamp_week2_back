@@ -1,0 +1,37 @@
+{
+    "_id": "158cbad6-2601-4f94-afeb-fab210b535bd",
+    "colName": "Madcamp",
+    "created": "2023-07-08T02:01:06.403Z",
+    "sortNum": 10000,
+    "folders": [
+        {
+            "_id": "d73b28c7-8c45-4603-85f9-000d563459e2",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2023-07-08T02:01:13.490Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "5c040795-cfc9-4a3d-966d-116fd1e1b78b",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "d73b28c7-8c45-4603-85f9-000d563459e2",
+            "name": "Google Social Login",
+            "url": "http://localhost:3030/auth/login/google",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-07-08T02:04:05.183Z",
+            "modified": "2023-07-08T02:07:20.050Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"idToken\": \"\",\n  \"email\": \"\"\n}",
+                "form": []
+            },
+            "tests": [],
+            "docs": "안드로이드에서 받은 idToken과 email를 body에 넣어 요청해야 함.\n"
+        }
+    ]
+}
