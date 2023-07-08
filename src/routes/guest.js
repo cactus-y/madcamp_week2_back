@@ -2,11 +2,20 @@ const express = require('express');
 const { Guest, Board } = require('../database/schema');
 const checkAccessToken = require('../middleware/checkAccessToken');
 const { findUserWithId } = require('../database/user');
+const { findBoardById } = require('../database/board');
 const router = express.Router();
 
 
 router.post('/', checkAccessToken(true), async (req, res) => {
     try {
+        const board = await findBoardById(req.body.boardId);
+        if (!board) {
+            return res.status(400).json({
+                success: false,
+                invalidBoard: true,
+                message: '존재하지 않는 board입니다.'
+            });
+        }
         const guest = await Guest.findOne({
             board_id: req.body.boardId,
             guest_id: req.user.id
@@ -14,9 +23,11 @@ router.post('/', checkAccessToken(true), async (req, res) => {
         if (guest) {
             return res.status(400).json({
                 success: false,
+                guestDupliate: true,
                 message: '이미 존재하는 guest입니다.'
             });
         }
+
         await Guest.create({
             board_id: req.body.boardId,
             guest_id: req.user.id,
