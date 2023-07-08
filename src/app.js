@@ -1,6 +1,7 @@
 const router = require('./routes');
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require('cors');
 
 // 환경 변수
 require("dotenv").config();
@@ -16,6 +17,7 @@ mongoose.connect(process.env.MONGO_DB_URL)
 
 const app = express();
 
+app.use(cors());
 app.use((err, req, res, next) => {
     if (err) {
         console.log(err);
@@ -26,7 +28,6 @@ app.use((err, req, res, next) => {
         next();
     }
 });
-
 app.use(express.json());
 app.use("/", router);
 app.listen(3030, () => console.log('http://localhost:3030'));

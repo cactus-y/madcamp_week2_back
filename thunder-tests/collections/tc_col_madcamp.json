@@ -10,6 +10,13 @@
             "containerId": "",
             "created": "2023-07-08T02:01:13.490Z",
             "sortNum": 10000
+        },
+        {
+            "_id": "3534727f-25f8-4d55-b659-dc7d65f73b6e",
+            "name": "User",
+            "containerId": "",
+            "created": "2023-07-08T03:08:28.046Z",
+            "sortNum": 20000
         }
     ],
     "requests": [
@@ -32,6 +39,67 @@
             },
             "tests": [],
             "docs": "안드로이드에서 받은 idToken과 email를 body에 넣어 요청해야 함.\n"
+        },
+        {
+            "_id": "1169da9b-9a71-4992-9826-1d3d7ac25308",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "3534727f-25f8-4d55-b659-dc7d65f73b6e",
+            "name": "Create User",
+            "url": "http://localhost:3030/user",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-07-08T03:08:36.913Z",
+            "modified": "2023-07-08T06:07:03.745Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "data",
+                        "value": "{\"email\": \"test@gmail.com\", \"nickname\": \"test\", \"gender\": true, \"music_genre\": [\"발라드\"]}"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "file",
+                        "value": "..\\..\\..\\Users\\USER\\Downloads\\daylog_icon.png"
+                    }
+                ]
+            },
+            "tests": [],
+            "docs": "`multipart/form-data` 형식의 데이터를 요청받습니다. `data` 필드에 json형식의 데이터를 `stringfy`한 값을 넣고, `file` 필드에 바이너리 형식의 이미지 파일을 넣습니다."
+        },
+        {
+            "_id": "f1a3d26d-de09-4ef7-b09b-fd7979a76952",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "3534727f-25f8-4d55-b659-dc7d65f73b6e",
+            "name": "Update User",
+            "url": "http://localhost:3030/user/64a902f79ae0b2e0c98dbc97",
+            "method": "PATCH",
+            "sortNum": 40000,
+            "created": "2023-07-08T06:22:22.399Z",
+            "modified": "2023-07-08T06:37:02.144Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "data",
+                        "value": "{\"email\": \"test@gmail.com\", \"nickname\": \"test22\", \"gender\": true, \"music_genre\": [\"발라드\", \"록\"]}"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "file",
+                        "value": "..\\..\\..\\Users\\USER\\Downloads\\quote_left-removebg-preview.png"
+                    }
+                ]
+            },
+            "tests": []
         }
     ]
 }
