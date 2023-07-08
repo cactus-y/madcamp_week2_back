@@ -37,9 +37,9 @@ router.post('/', uploadImage.single('file'), async (req, res)  => {
                 nickname: user.nickname,
                 gender: user.gender,
                 rate: user.rate,
-                music_genre: JSON.parse(user.music_genre),
-                profile_image: getImageUrl(user.profile_image),
-                createdAt: user.createdAt.toISOString().split('.')[0]
+                musicGenre: JSON.parse(user.music_genre),
+                profileImage: getImageUrl(user.profile_image),
+                createdAt: user.created_at.toISOString().split('.')[0]
             },
         });
     } catch (e) {
@@ -104,9 +104,9 @@ router.patch('/:id',
                     nickname: newUser.nickname,
                     gender: newUser.gender,
                     rate: newUser.rate,
-                    music_genre: JSON.parse(newUser.music_genre),
-                    profile_image: getImageUrl(newUser.profile_image),
-                    createdAt: newUser.createdAt.toISOString().split('.')[0]
+                    musicGenre: JSON.parse(newUser.music_genre),
+                    profileImage: getImageUrl(newUser.profile_image),
+                    createdAt: newUser.created_at.toISOString().split('.')[0]
                 },
             });
         } catch (error) {

@@ -35,18 +35,18 @@ const user = new Schema({
     required: true,
     type: String
   },
-  createdAt: {
+  created_at: {
     type: Date,
     default: dayjs().tz().add(9, 'hour').format()
   },
-  updatedAt: {
+  updated_at: {
     type: Date,
     default: dayjs().tz().add(9, 'hour').format()
   }
 });
 
 const karaoke = new Schema({
-  placeId: {
+  place_id: {
     required: true,
     type: String,
     unique: true
@@ -59,7 +59,7 @@ const karaoke = new Schema({
     required: true,
     type: String,
   },
-  roadAddress: {
+  road_address: {
     required: true,
     type: String
   },
@@ -77,14 +77,18 @@ const karaoke = new Schema({
     type: String,
     required: true
   },
-  createdAt: {
+  distance: {
+    type: Number,
+    required: true
+  },
+  created_at: {
     type: Date,
     default: dayjs().tz().add(9, 'hour').format()
   },
-  updatedAt: {
+  updated_at: {
     type: Date,
     default: dayjs().tz().add(9, 'hour').format()
-  }
+  },
 });
 
 const Post = new Schema({
