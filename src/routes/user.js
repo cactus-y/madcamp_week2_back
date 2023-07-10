@@ -52,7 +52,7 @@ router.post('/', uploadImage.single("file"), async (req, res)  => {
             gender: user.gender,
             email: user.email,
             nickname: user.nickname,
-            musicGenre: user.music_genre,
+            musicGenre: JSON.parse(user.music_genre),
             profileImage: getImageUrl(user.profile_image)
         };
         const token = jwt.sign(payload, SECRET_KEY, {
