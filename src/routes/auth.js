@@ -23,10 +23,17 @@ router.post('/login/google', async (req, res, next) => {
             });
             return res.status(200).json({ 
                 success: true, 
-                token,                 
-                nickname: user.nickname, 
-                email: user.email, 
-                profileImage: getImageUrl(user.profile_image)   
+                token,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    nickname: user.nickname,
+                    gender: user.gender,
+                    rate: user.rate,
+                    musicGenre: JSON.parse(user.music_genre),
+                    profileImage: user.profile_image ? getImageUrl(user.profile_image): null,
+                    createdAt: user.created_at.toISOString().split('.')[0]
+                }
             });
         }
         else {
@@ -40,9 +47,11 @@ router.post('/login/google', async (req, res, next) => {
             return res.status(200).json({ 
                 success: true,
                 token: null,
-                nickname: payload.name,
-                email: payload.email, 
-                profileImage: payload.picture 
+                user: {
+                    nickname: payload.name,
+                    email: payload.email, 
+                    profileImage: payload.picture 
+                }
             });
         }
     }
