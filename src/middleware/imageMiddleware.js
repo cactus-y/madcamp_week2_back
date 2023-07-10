@@ -13,7 +13,7 @@ const fileFilter = (req, file, callback) => {
     const typeArray = file.originalname.split('.');
     const fileType = typeArray[typeArray.length - 1]; // 이미지 확장자 추출
     //이미지 확장자 구분 검사
-    if (fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png') {
+    if (fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'webp') {
       callback(null, true);
     } else {
       return callback(
