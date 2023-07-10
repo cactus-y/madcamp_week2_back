@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require("jsonwebtoken");
-const { checkAccessToken } = require("../middleware/checkAccessToken")
+const checkAccessToken = require("../middleware/checkAccessToken")
 const { createUser, findUserWithEmail, findUserWithNickname, findUserWithId, updateUser } = require('../database/user');
 const uploadImage = require('../middleware/imageMiddleware');
 const { getImageUrl, deleteImage } = require('../utils/image');
