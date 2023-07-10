@@ -1,15 +1,19 @@
 const express = require('express');
-
+const jwt = require("jsonwebtoken");
 const { createUser, findUserWithEmail, findUserWithNickname, findUserWithId, updateUser } = require('../database/user');
 const uploadImage = require('../middleware/imageMiddleware');
 const { getImageUrl, deleteImage } = require('../utils/image');
 const router = express.Router();
+require("dotenv").config();
+
+const { SECRET_KEY, ISSUER } = process.env;
 
 router.get('/', async (req, res) => {
     res.status(200).json("Success to get user");
 })
 
-router.post('/', uploadImage.single('file'), async (req, res)  => {
+router.post('/', uploadImage.single("file"), async (req, res)  => {
+    console.log(req);
     const data = JSON.parse(req.body.data);
     try {
         if (await findUserWithEmail(data.email)) {
@@ -26,11 +30,19 @@ router.post('/', uploadImage.single('file'), async (req, res)  => {
         }
         const user = await createUser({
             ...data,
-            profile_image: req.file.filename,
-            music_genre: JSON.stringify(data.music_genre)
+            profile_image: req.file ? req.file.filename : '',
+            music_genre: JSON.stringify(data.musicGenre)
+        });
+        const payload = {
+            type: 'JWT',
+            userId: user.id,
+        };
+        const token = jwt.sign(payload, SECRET_KEY, {
+            issuer: ISSUER,
         });
         return res.status(201).json({
             success: true,
+            token,
             user: {
                 id: user.id,
                 email: user.email,
@@ -38,7 +50,7 @@ router.post('/', uploadImage.single('file'), async (req, res)  => {
                 gender: user.gender,
                 rate: user.rate,
                 musicGenre: JSON.parse(user.music_genre),
-                profileImage: getImageUrl(user.profile_image),
+                profileImage: user.profile_image ? getImageUrl(user.profile_image): null,
                 createdAt: user.created_at.toISOString().split('.')[0]
             },
         });

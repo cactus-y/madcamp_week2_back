@@ -23,7 +23,6 @@ const user = new Schema({
     type: Boolean,
   },
   profile_image: {
-    required: true,
     type: String
   },
   rate: {

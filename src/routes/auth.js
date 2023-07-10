@@ -1,5 +1,6 @@
 const { OAuth2Client } = require('google-auth-library');
 const { findUserWithEmail } = require('../database/user');
+const { getImageUrl } = require('../utils/image');
 const express = require('express');
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -20,7 +21,13 @@ router.post('/login/google', async (req, res, next) => {
             const token = jwt.sign(payload, SECRET_KEY, {
                 issuer: ISSUER,
             });
-            return res.status(200).json({ success: true, token });
+            return res.status(200).json({ 
+                success: true, 
+                token,                 
+                nickname: user.nickname, 
+                email: user.email, 
+                profileImage: getImageUrl(user.profile_image)   
+            });
         }
         else {
             const client = new OAuth2Client(CLIENT_ID);
@@ -31,8 +38,9 @@ router.post('/login/google', async (req, res, next) => {
             const payload = ticket.getPayload();
             // console.log(payload);
             return res.status(200).json({ 
-                success: true, 
-                name: payload.name, 
+                success: true,
+                token: null,
+                nickname: payload.name,
                 email: payload.email, 
                 profileImage: payload.picture 
             });

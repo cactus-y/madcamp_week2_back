@@ -70,7 +70,7 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2023-07-08T03:08:36.913Z",
-            "modified": "2023-07-08T06:07:03.745Z",
+            "modified": "2023-07-10T08:38:46.795Z",
             "headers": [],
             "params": [],
             "body": {
@@ -79,15 +79,10 @@
                 "form": [
                     {
                         "name": "data",
-                        "value": "{\"email\": \"test@gmail.com\", \"nickname\": \"test\", \"gender\": true, \"music_genre\": [\"발라드\"]}"
+                        "value": "{\"email\": \"tdest@gmail.com\", \"nickname\": \"tedst\", \"gender\": true, \"musicGenre\": [\"발라드\"]}"
                     }
                 ],
-                "files": [
-                    {
-                        "name": "file",
-                        "value": "..\\..\\..\\Users\\USER\\Downloads\\daylog_icon.png"
-                    }
-                ]
+                "files": []
             },
             "tests": [],
             "docs": "`multipart/form-data` 형식의 데이터를 요청받습니다. `data` 필드에 json형식의 데이터를 `stringfy`한 값을 넣고, `file` 필드에 바이너리 형식의 이미지 파일을 넣습니다."
