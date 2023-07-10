@@ -17,6 +17,7 @@ router.post('/login/google', async (req, res, next) => {
             const payload = {
                 type: 'JWT',
                 userId: user.id,
+                gender: user.gender,
                 email: user.email,
                 nickname: user.nickname,
                 musicGenre: user.music_genre,

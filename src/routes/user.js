@@ -49,6 +49,7 @@ router.post('/', uploadImage.single("file"), async (req, res)  => {
         const payload = {
             type: 'JWT',
             userId: user.id,
+            gender: user.gender,
             email: user.email,
             nickname: user.nickname,
             musicGenre: user.music_genre,
