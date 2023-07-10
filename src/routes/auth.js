@@ -31,7 +31,7 @@ router.post('/login/google', async (req, res, next) => {
                     gender: user.gender,
                     rate: user.rate,
                     musicGenre: JSON.parse(user.music_genre),
-                    profileImage: user.profile_image ? getImageUrl(user.profile_image): null,
+                    profileImage: getImageUrl(user.profile_image),
                     createdAt: user.created_at.toISOString().split('.')[0]
                 }
             });
