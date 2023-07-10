@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require("jsonwebtoken");
+const { checkAccessToken } = require("../middleware/checkAccessToken")
 const { createUser, findUserWithEmail, findUserWithNickname, findUserWithId, updateUser } = require('../database/user');
 const uploadImage = require('../middleware/imageMiddleware');
 const { getImageUrl, deleteImage } = require('../utils/image');
@@ -8,8 +9,20 @@ require("dotenv").config();
 
 const { SECRET_KEY, ISSUER } = process.env;
 
-router.get('/', async (req, res) => {
-    res.status(200).json("Success to get user");
+router.get('/', checkAccessToken(true), async (req, res) => {
+    try {
+        const user = await findUserWithId(req.user.id);
+        res.status(200).json({
+            success: true,
+            user
+        });
+    }
+    catch(error) {
+        console.log(error);
+        res.status(400).json({
+            success: false
+        })
+    }
 })
 
 router.post('/', uploadImage.single("file"), async (req, res)  => {
@@ -50,7 +63,7 @@ router.post('/', uploadImage.single("file"), async (req, res)  => {
                 gender: user.gender,
                 rate: user.rate,
                 musicGenre: JSON.parse(user.music_genre),
-                profileImage: user.profile_image ? getImageUrl(user.profile_image): null,
+                profileImage: getImageUrl(user.profile_image),
                 createdAt: user.created_at.toISOString().split('.')[0]
             },
         });
@@ -83,7 +96,7 @@ router.patch('/:id',
     async (req, res) => {
         try {
             let user = await findUserWithId(req.params.id);
-            const previousImageFilename = user.profile_image;
+            const previousImageFilename = user.profileImage;
             const data = JSON.parse(req.body.data);
             user = await findUserWithEmail(data.email)
             if (user && user.id != req.params.id) {

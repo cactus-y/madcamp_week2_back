@@ -1,7 +1,7 @@
 const fs = require('fs');
 require('dotenv').config();
 
-const getImageUrl = (filename) => process.env.BACKEND_BASE_URL + '/image/' + filename;
+const getImageUrl = (filename) => filename ? process.env.BACKEND_BASE_URL + '/image/' + filename : null;
 const getImagePath = (filename) => 'uploads/' + filename;
 const deleteImage = (filename) => {
     fs.unlink(getImagePath(filename), (err) => {
