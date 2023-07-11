@@ -158,16 +158,16 @@
             "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
             "containerId": "884759c8-2d7b-4a39-8223-9dac72a43acb",
             "name": "Get Board List By Karaoke Id",
-            "url": "http://localhost:3030/board/list?karaokeId=64a9136c23cedd47ea26700e",
+            "url": "http://34.64.184.111:3030/board/list?karaokeId=64acf2e68d118caeb0785637",
             "method": "GET",
             "sortNum": 60000,
             "created": "2023-07-08T08:08:06.503Z",
-            "modified": "2023-07-08T11:12:31.329Z",
+            "modified": "2023-07-11T13:20:53.454Z",
             "headers": [],
             "params": [
                 {
                     "name": "karaokeId",
-                    "value": "64a9136c23cedd47ea26700e",
+                    "value": "64acf2e68d118caeb0785637",
                     "isPath": false
                 }
             ],
@@ -310,6 +310,25 @@
                 {
                     "name": "Authorization",
                     "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSldUIiwidXNlcklkIjoiNjRhYmU2Nzc1MGY2ZWYxNzkxZjM2NTM3IiwiaWF0IjoxNjg4OTg3MjU1LCJpc3MiOiJtYWRjYW1wIn0.DqQrQraBzlILRsQClUcAUSns9XkkYLktB7uWvehvi5k"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "fc08f418-3c4d-4b46-9f71-8d3711a810c6",
+            "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
+            "containerId": "884759c8-2d7b-4a39-8223-9dac72a43acb",
+            "name": "Get Board List I registered",
+            "url": "http://34.64.184.111:3030/board/list/auth",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2023-07-11T14:38:26.338Z",
+            "modified": "2023-07-11T14:40:57.675Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSldUIiwidXNlcklkIjoiNjRhOTAyZjc5YWUwYjJlMGM5OGRiYzk3IiwiaWF0IjoxNjg4ODA1MjY1LCJpc3MiOiJtYWRjYW1wIn0.7y807vdq1tGKNu8RQPK6ExJb7I0hwrZ4KUBdu3UnH_0"
                 }
             ],
             "params": [],

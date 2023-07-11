@@ -4,6 +4,7 @@ const checkAccessToken = require("../middleware/checkAccessToken")
 const { createUser, findUserWithEmail, findUserWithNickname, findUserWithId, updateUser } = require('../database/user');
 const uploadImage = require('../middleware/imageMiddleware');
 const { getImageUrl, deleteImage } = require('../utils/image');
+const { Device } = require('../database/schema');
 const router = express.Router();
 require("dotenv").config();
 
@@ -20,6 +21,38 @@ router.get('/', checkAccessToken(true), async (req, res) => {
     catch(error) {
         console.log(error);
         res.status(400).json({
+            success: false
+        })
+    }
+})
+
+router.post('/device', checkAccessToken(true), async (req, res) => {
+    try {
+        await Device.create({
+            user_id: req.user.id,
+            device_token: req.body.deviceToken
+        })
+        return res.status(200).json({
+            success: true
+        })
+    }
+    catch(e) {
+        console.log(e);
+        return res.status(400).json({
+            success: false
+        })
+    }
+})
+
+router.patch('/device', checkAccessToken(true), async (req, res) => {
+    try {
+        await Device.findOneAndUpdate({ user_id: req.user.id }, { device_token: req.body.deviceToken })
+        return res.status(200).json({
+            success: true
+        })
+    }
+    catch(e) {
+        return res.status(400).json({
             success: false
         })
     }

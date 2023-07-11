@@ -144,16 +144,15 @@ const guest = new Schema({
   },
 })
 
-const chatroom = new Schema({
-  user1: {
+const device = new Schema({
+  user_id: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    required: true,
+    ref: 'User'
   },
-  user2: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+  device_token: {
+    type: String,
+    required: true,
   }
 })
 
@@ -161,11 +160,11 @@ const User = mongoose.model('User', user);
 const Karaoke = mongoose.model("Karaoke", karaoke);
 const Board = mongoose.model('Board', board);
 const Guest = mongoose.model('Guest', guest);
-const Chatroom = mongoose.model("Chatroom", chatroom);
+const Device = mongoose.model('Device', device);
 module.exports = {
     User,
     Karaoke,
     Board,
     Guest,
-    Chatroom
+    Device
 }

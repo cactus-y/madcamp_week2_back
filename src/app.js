@@ -2,7 +2,13 @@ const router = require('./routes');
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
+const admin = require("firebase-admin");
+const serviceAccount = require("../madcamp-392105-firebase-adminsdk-xwnsd-9c440d4841.json");
+const { Device } = require('./database/schema');
 
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 // 환경 변수
 require("dotenv").config();
@@ -43,13 +49,33 @@ io.on('connection', function(socket){
   
   
   //메세지 입력하면 서버 로그에 이거뜸
-  socket.on('newMessage', (data) => {
+  socket.on('newMessage', async (data) => {
     const messageData = JSON.parse(data)
     const msg = messageData.msg;
     const roomNumber = messageData.roomNumber;
-    const sender = messageData.username;
+    const senderName = messageData.username;
+    const senderId = messageData.userId;
     console.log("Message ", msg);
-    console.log("보내는 사람 : ", sender);
+    console.log("보내는 사람 : ", senderName);
+    const item = await Device.findOne({ user_id: senderId })
+    const message = {
+      data: {
+        title: '테스트 데이터 발송',
+        body: '데이터가 잘 가나요?',
+        style: '굳굳',
+      },
+      token: item.device_token,
+    }
+
+    admin
+      .messaging()
+      .send(message)
+      .then(function (response) {
+        console.log('Successfully sent message: : ', response)
+      })
+      .catch(function (err) {
+        console.log('Error Sending message!!! : ', err)
+      })
     io.to(roomNumber).emit('update', JSON.stringify(messageData));
   });
 
