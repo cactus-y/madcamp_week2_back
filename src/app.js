@@ -16,11 +16,14 @@ mongoose.connect(process.env.MONGO_DB_URL)
     console.log(err);
   });
 
-
-
 const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*'
+  }
+});
+
 io.on('connection', function(socket){
 
   //로그인하면 이거 밑에 두개뜸
@@ -67,4 +70,4 @@ app.use((err, req, res, next) => {
 });
 app.use(express.json());
 app.use("/", router);
-app.listen(3030, () => console.log('http://localhost:3030'));
+server.listen(3030, () => console.log('http://localhost:3030'));
