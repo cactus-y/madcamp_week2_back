@@ -17,8 +17,8 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
             const author = await findUserWithId(item.author_id);
             const guestList = await Guest.find({ board_id: item.id, accepted: true });
             const guest = [];
-            for (let j = 0; j < guestList.length; i++) {
-                const user = await findUserWithId(guestList[i].guest_id);
+            for (let j = 0; j < guestList.length; j++) {
+                const user = await findUserWithId(guestList[j].guest_id);
                 guest.push(user);
             }
             data.push({                    
