@@ -1,7 +1,7 @@
 const express = require('express');
 const checkAccessToken = require('../middleware/checkAccessToken');
 const { findUserWithId } = require('../database/user');
-const { Board, Guest } = require('../database/schema');
+const { Board, Guest, Karaoke } = require('../database/schema');
 const router = express.Router();
 const dayjs = require('dayjs');
 
@@ -41,6 +41,50 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
             success: false
         })
     }
+})
+
+router.get("/list/auth", checkAccessToken(true), async (req, res) => {
+    try {
+        const boardList = await Board.find({ author_id: req.user.id });
+        const data = [];
+        for (let i = 0; i < boardList.length; i++) {
+            const item = boardList[i];
+            if (new Date(item.deadline).getTime() <= new Date().getTime()) {
+                continue;
+            }
+            const karaoke = await Karaoke.findById(item.karaoke_id);
+            const list = await Guest.find({ board_id: item.id, accepted: true });
+            const guestList = [];
+            for (let j = 0; j < list.length; j++) {
+                const user = await findUserWithId(list[j].guest_id);
+                guestList.push(user);
+            }
+            data.push({                    
+                id: item.id,
+                deadline: item.deadline,
+                content: item.content || '',
+                karaoke: {
+                  id: karaoke.id,
+                  placeId: karaoke.place_id,
+                  name: karaoke.name,
+                  address: karaoke.address,
+                  roadAddress: karaoke.road_address,
+                  phone: karaoke.phone,
+                },
+                guestList
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            boardList: data
+        })
+    }
+    catch(error) {
+        console.log(error);
+        return res.status(400).json({
+            success: false
+        })
+    } 
 })
 
 router.post('/', checkAccessToken(true), async (req, res) => {

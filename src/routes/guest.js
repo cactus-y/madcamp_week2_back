@@ -1,5 +1,5 @@
 const express = require('express');
-const { Guest, Board } = require('../database/schema');
+const { Guest, Board, Karaoke } = require('../database/schema');
 const checkAccessToken = require('../middleware/checkAccessToken');
 const { findUserWithId } = require('../database/user');
 const { findBoardById } = require('../database/board');
@@ -55,6 +55,50 @@ router.get('/list', async (req, res) => {
         for (let i = 0; i < list.length; i++) {
             const user = await findUserWithId(list[i].guest_id);
             data.push(user);
+        }
+        return res.status(200).json({
+            success: true,
+            list: data
+        })
+    }
+    catch(error) {
+        console.log(error);
+        return res.status(400).json({
+            success: false,
+            error
+        });
+    }
+})
+
+router.get('/list/auth', checkAccessToken(true), async (req, res) => {
+    try {
+        const list = await Guest.find({
+            guest_id: req.user.id
+        });
+        const data = [];
+        for (let i = 0; i < list.length; i++) {
+            const board = await Board.findById(list[i].board_id);
+            const karaoke = await Karaoke.findById(board.karaoke_id)
+            const guestList = [];
+            const _list = await Guest.find({ board_id: board.id, accepted: true });
+            for (let j = 0; j < _list.length; j++) {
+                const user = await findUserWithId(_list[j].guest_id);
+                guestList.push(user);
+            }
+            data.push({
+                id: board.id,
+                deadline: board.deadline,
+                content: board.content || '',
+                karaoke: {
+                  id: karaoke.id,
+                  placeId: karaoke.place_id,
+                  name: karaoke.name,
+                  address: karaoke.address,
+                  roadAddress: karaoke.road_address,
+                  phone: karaoke.phone,
+                },
+                guestList
+            });
         }
         return res.status(200).json({
             success: true,
