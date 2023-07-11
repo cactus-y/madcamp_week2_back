@@ -15,14 +15,19 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                 continue;
             }
             const author = await findUserWithId(item.author_id);
-            const people = await Guest.find({ board_id: item.id });
+            const guestList = await Guest.find({ board_id: item.id, accepted: true });
+            const guest = [];
+            for (let j = 0; j < guestList.length; i++) {
+                const user = await findUserWithId(guestList[i].guest_id);
+                guest.push(user);
+            }
             data.push({                    
                 id: item.id,
                 deadline: item.deadline,
                 content: item.content || '',
                 karaokeId: item.karaoke_id,
-                togetherCount: people.length,
-                author
+                author,
+                guest
             })
         }
         return res.status(200).json({
@@ -65,7 +70,7 @@ router.post('/', checkAccessToken(true), async (req, res) => {
                 id: newBoard.id,
                 content: newBoard.content || '',
                 deadline: dayjs(newBoard.deadline).format().split("+")[0],
-                author
+                author,
             }
         })
     }
