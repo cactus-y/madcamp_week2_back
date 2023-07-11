@@ -7,7 +7,7 @@ require('dotenv').config();
 
 router.get('/list', checkAccessToken(false), async (req, res) => {
     const data = {
-        total_cnt: 0,
+        totalCnt: 0,
         list: [],
     };
     try {
@@ -36,10 +36,10 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                 const element = response.data.documents[i];
                 const karaoke = await findKaraokeByPlaceId(element.id);
                 const payload = {
-                    place_id: element.id,
+                    placeId: element.id,
                     name: element.place_name,
                     address: element.address_name,
-                    road_address: element.road_address_name,
+                    roadAddress: element.road_address_name,
                     phone: element.phone,
                     longitude: element.x,
                     latitude: element.y,
