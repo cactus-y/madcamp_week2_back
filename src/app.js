@@ -60,11 +60,11 @@ io.on('connection', function(socket){
     const item = await Device.findOne({ user_id: receiverId })
     console.log(item)
     const message = {
-      data: {
-        title: '테스트 데이터 발송',
-        body: '데이터가 잘 가나요?',
-        style: '굳굳',
+      notification: {
+        title: '알림 제목',
+        body: '알림 본문'
       },
+      data,
       token: item.device_token,
     }
 
