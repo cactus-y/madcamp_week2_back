@@ -79,12 +79,7 @@ router.get('/list/auth', checkAccessToken(true), async (req, res) => {
         for (let i = 0; i < list.length; i++) {
             const board = await Board.findById(list[i].board_id);
             const karaoke = await Karaoke.findById(board.karaoke_id)
-            const guestList = [];
-            const _list = await Guest.find({ board_id: board.id, accepted: true });
-            for (let j = 0; j < _list.length; j++) {
-                const user = await findUserWithId(_list[j].guest_id);
-                guestList.push(user);
-            }
+            const author = await findUserWithId(board.author_id)
             data.push({
                 id: board.id,
                 deadline: board.deadline,
@@ -97,7 +92,7 @@ router.get('/list/auth', checkAccessToken(true), async (req, res) => {
                   roadAddress: karaoke.road_address,
                   phone: karaoke.phone,
                 },
-                guestList
+                author,
             });
         }
         return res.status(200).json({
