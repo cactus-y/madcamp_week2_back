@@ -132,7 +132,7 @@ const guest = new Schema({
   accepted: {
     type: Boolean,
     required: true,
-    default: false
+    default: true
   },
   created_at: {
     type: Date,

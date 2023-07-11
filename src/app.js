@@ -29,29 +29,13 @@ io.on('connection', function(socket){
   //로그인하면 이거 밑에 두개뜸
   console.log('User Conncetion');
   
-  // { roomNumber?, sender: { id, username, profileImage? }, receiver: { id, username. profileImage? }}
+  // { roomNumber, username }
   socket.on('enter', async (data) => {
     try {
       const roomData = JSON.parse(data);
-      console.log(`[Username : ${roomData.sender.username}] entered [room number : ${roomNumber}]`)
-      if (!roomData.roomNumber) {
-        const newRoom = await Chatroom.create({
-          user1: roomData.receiver.id,
-          user2: roomData.sender.id
-        })
-        socket.join(`${newRoom.id}`)
-        console.log(`[Username : ${roomData.sender.username}] entered [room number : ${newRoom.id}]`)
-        io.to(roomNumber).emit('create room number', JSON.stringify({
-          roomNumber: newRoom.id
-        }));
-        
-      }
-      else {
-        socket.join(`${roomNumber}`)
-        console.log(`[Username : ${roomData.sender.username}] entered [room number : ${newRoom.id}]`)
-      } 
+      socket.join(`${roomData.roomNumber}`)
+      console.log(`[Username : ${roomData.username}] entered [room number : ${roomData.roomNumber}]`)
     }
-
     catch(e) {
       console.log(e)
     }
