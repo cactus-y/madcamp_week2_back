@@ -27,20 +27,25 @@ io.on('connection', function(socket){
   //로그인하면 이거 밑에 두개뜸
   console.log('User Conncetion');
   
-  socket.on('connect user', function(user){
-    console.log("Connected user ");
-    socket.join(user['roomName']);
-    console.log("roomName : ", user['roomName']);
-    console.log("state : ", socket.adapter.rooms);
-    io.emit('connect user', user);
-  });
+  socket.on('enter', (data) => {
+    const roomData = JSON.parse(data)
+    const username = roomData.username
+    const roomNumber = roomData.roomNumber
+
+    socket.join(`${roomNumber}`)
+    console.log(`[Username : ${username}] entered [room number : ${roomNumber}]`)
+  })
   
   
   //메세지 입력하면 서버 로그에 이거뜸
-  socket.on('chat message', function(msg){
-    console.log("Message " + msg['message']);
-    console.log("보내는 아이디 : ", msg['roomName']);
-    io.to(msg['roomName']).emit('chat message', msg);
+  socket.on('newMessage', function(data){
+    const messageData = JSON.parse(data)
+    const msg = messageData.msg;
+    const roomNumber = messageData.roomNumber;
+    const sender = messageData.username;
+    console.log("Message ", msg);
+    console.log("보내는 사람 : ", sender);
+    io.to(roomNumber).emit('update', JSON.stringify(messageData));
   });
 
   socket.on('disconnect', function() { 
