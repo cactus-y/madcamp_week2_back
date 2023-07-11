@@ -64,7 +64,12 @@ io.on('connection', function(socket){
         title: '알림 제목',
         body: '알림 본문'
       },
-      data,
+      data: {
+        message: msg,
+        senderName,
+        roomNumber,
+        receiverId
+      },
       token: item.device_token,
     }
 
