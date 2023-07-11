@@ -67,7 +67,7 @@ io.on('connection', function(socket){
         roomNumber,
         receiverId,
         senderId,
-        senderProfileImage,
+        senderProfileImage: senderProfileImage || "",
       },
       token: item.device_token,
     }
