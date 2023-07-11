@@ -26,32 +26,25 @@ router.get('/', checkAccessToken(true), async (req, res) => {
     }
 })
 
-router.post('/device', checkAccessToken(true), async (req, res) => {
+router.put('/device', checkAccessToken(true), async (req, res) => {
     try {
-        await Device.create({
-            user_id: req.user.id,
-            device_token: req.body.deviceToken
-        })
+        const row = await Device.findOne({ user_id: req.user.id })
+        if (row) {
+            await Device.updateOne({ user_id: req.user.id }, { device_token: req.body.deviceToken })
+        }
+        else {
+            await Device.create({
+                user_id: req.user.id,
+                device_token: req.body.deviceToken
+            })
+        }
+
         return res.status(200).json({
             success: true
         })
     }
     catch(e) {
         console.log(e);
-        return res.status(400).json({
-            success: false
-        })
-    }
-})
-
-router.patch('/device', checkAccessToken(true), async (req, res) => {
-    try {
-        await Device.findOneAndUpdate({ user_id: req.user.id }, { device_token: req.body.deviceToken })
-        return res.status(200).json({
-            success: true
-        })
-    }
-    catch(e) {
         return res.status(400).json({
             success: false
         })
