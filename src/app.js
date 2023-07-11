@@ -54,10 +54,11 @@ io.on('connection', function(socket){
     const msg = messageData.msg;
     const roomNumber = messageData.roomNumber;
     const senderName = messageData.username;
-    const senderId = messageData.userId;
+    const receiverId = messageData.receiverId;
     console.log("Message ", msg);
     console.log("보내는 사람 : ", senderName);
-    const item = await Device.findOne({ user_id: senderId })
+    const item = await Device.findOne({ user_id: receiverId })
+    console.log(item)
     const message = {
       data: {
         title: '테스트 데이터 발송',
