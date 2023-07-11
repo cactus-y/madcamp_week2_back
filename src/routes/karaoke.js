@@ -48,7 +48,10 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                 }
                 if (karaoke) {
                     await updateKaraoke(payload);
-                    data.list.push(payload);
+                    data.list.push({
+                        ...payload,
+                        id: karaoke.id
+                    });
                 }
                 else {
                     const newKaraoke = await createKaraoke(payload);
