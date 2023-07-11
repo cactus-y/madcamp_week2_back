@@ -15,11 +15,11 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                 continue;
             }
             const author = await findUserWithId(item.author_id);
-            const guestList = await Guest.find({ board_id: item.id, accepted: true });
-            const guest = [];
-            for (let j = 0; j < guestList.length; j++) {
-                const user = await findUserWithId(guestList[j].guest_id);
-                guest.push(user);
+            const list = await Guest.find({ board_id: item.id, accepted: true });
+            const guestList = [];
+            for (let j = 0; j < list.length; j++) {
+                const user = await findUserWithId(list[j].guest_id);
+                guestList.push(user);
             }
             data.push({                    
                 id: item.id,
@@ -27,7 +27,7 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                 content: item.content || '',
                 karaokeId: item.karaoke_id,
                 author,
-                guest
+                guestList
             })
         }
         return res.status(200).json({
