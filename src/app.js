@@ -54,32 +54,34 @@ io.on('connection', function(socket){
     const { receiverId, senderId, senderName, senderProfileImage, msg, roomNumber, timestamp } = messageData;
     console.log("Message ", msg);
     console.log("보내는 사람 : ", senderName);
-    const list = await Device.find({ user_id: receiverId })
-    console.log(list)
-    const message = {
-      data: {
-        title: '알림 제목',
-        body: '알림 본문',
-        message: msg,
-        senderName,
-        roomNumber,
-        receiverId,
-        senderId,
-        senderProfileImage: senderProfileImage || "",
-        timestamp: String(timestamp)
-      },
-      registration_ids: list.map(item => item.device_token),
+    const item = await Device.findOne({ user_id: receiverId })
+    console.log(item)
+    if (item) {
+      const message = {
+        data: {
+          title: senderName,
+          body: msg,
+          message: msg,
+          senderName,
+          roomNumber,
+          receiverId,
+          senderId,
+          senderProfileImage: senderProfileImage || "",
+          timestamp: String(timestamp)
+        },
+        token: item.device_token,
+      }
+  
+      admin
+        .messaging()
+        .send(message)
+        .then(function (response) {
+          console.log('Successfully sent message: : ', response)
+        })
+        .catch(function (err) {
+          console.log('Error Sending message!!! : ', err)
+        })
     }
-
-    admin
-      .messaging()
-      .send(message)
-      .then(function (response) {
-        console.log('Successfully sent message: : ', response)
-      })
-      .catch(function (err) {
-        console.log('Error Sending message!!! : ', err)
-      })
     io.to(roomNumber).emit('update', JSON.stringify(messageData));
   });
 
