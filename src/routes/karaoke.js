@@ -51,30 +51,30 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                     await updateKaraoke(payload);
                     data.list.push({
                         id: karaoke.id,
-                        placeId: payload.place_id,
-                        roadAddress: payload.road_address,
-                        name: payload.place_name,
-                        address: payload.address_name,
-                        phone: payload.phone,
-                        longitude: payload.x,
-                        latitude: payload.y,
-                        url: payload.place_url ,
-                        distance: Number(payload.distance)
+                        placeId: element.id,
+                        name: element.place_name,
+                        address: element.address_name,
+                        roadAddress: element.road_address_name,
+                        phone: element.phone,
+                        longitude: element.x,
+                        latitude: element.y,
+                        url: element.place_url ,
+                        distance: Number(element.distance)
                     });
                 }
                 else {
                     const newKaraoke = await createKaraoke(payload);
                     data.list.push({
                         id: newKaraoke.id,
-                        placeId: payload.place_id,
-                        roadAddress: payload.road_address,
-                        name: payload.place_name,
-                        address: payload.address_name,
-                        phone: payload.phone,
-                        longitude: payload.x,
-                        latitude: payload.y,
-                        url: payload.place_url ,
-                        distance: Number(payload.distance)
+                        placeId: element.id,
+                        name: element.place_name,
+                        address: element.address_name,
+                        roadAddress: element.road_address_name,
+                        phone: element.phone,
+                        longitude: element.x,
+                        latitude: element.y,
+                        url: element.place_url ,
+                        distance: Number(element.distance)
                     })
                 }
                 data.totalCnt++;
