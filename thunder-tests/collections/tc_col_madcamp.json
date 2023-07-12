@@ -122,11 +122,11 @@
             "colId": "158cbad6-2601-4f94-afeb-fab210b535bd",
             "containerId": "3f09f6d9-f09b-4223-9645-999adcd6f8df",
             "name": "Get Karaoke List",
-            "url": "http://localhost:3030/karaoke/list?radius=1000&x=127.027610&y=37.498095",
+            "url": "http://34.64.184.111:3030/karaoke/list?radius=1000&y=37.481222&x=126.952750",
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-07-08T07:30:28.989Z",
-            "modified": "2023-07-08T07:51:28.637Z",
+            "modified": "2023-07-12T08:37:08.562Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -141,13 +141,13 @@
                     "isPath": false
                 },
                 {
-                    "name": "x",
-                    "value": "127.027610",
+                    "name": "y",
+                    "value": "37.481222",
                     "isPath": false
                 },
                 {
-                    "name": "y",
-                    "value": "37.498095",
+                    "name": "x",
+                    "value": "126.952750",
                     "isPath": false
                 }
             ],

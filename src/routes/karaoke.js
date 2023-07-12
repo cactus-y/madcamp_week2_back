@@ -77,7 +77,7 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                         distance: Number(payload.distance)
                     })
                 }
-                data.total_cnt++;
+                data.totalCnt++;
             }
             end = response.data.meta.is_end;
             if (!end) page++;
