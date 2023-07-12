@@ -32,14 +32,15 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                     },
                 }
             );
+            console.log(response)
             for (let i = 0; i < response.data.documents.length; i++) {
                 const element = response.data.documents[i];
                 const karaoke = await findKaraokeByPlaceId(element.id);
                 const payload = {
-                    placeId: element.id,
+                    place_id: element.id,
                     name: element.place_name,
                     address: element.address_name,
-                    roadAddress: element.road_address_name,
+                    road_address: element.road_address_name,
                     phone: element.phone,
                     longitude: element.x,
                     latitude: element.y,
@@ -49,15 +50,31 @@ router.get('/list', checkAccessToken(false), async (req, res) => {
                 if (karaoke) {
                     await updateKaraoke(payload);
                     data.list.push({
-                        ...payload,
-                        id: karaoke.id
+                        id: karaoke.id,
+                        placeId: payload.place_id,
+                        roadAddress: payload.road_address,
+                        name: payload.place_name,
+                        address: payload.address_name,
+                        phone: payload.phone,
+                        longitude: payload.x,
+                        latitude: payload.y,
+                        url: payload.place_url ,
+                        distance: Number(payload.distance)
                     });
                 }
                 else {
                     const newKaraoke = await createKaraoke(payload);
                     data.list.push({
-                        ...payload,
-                        id: newKaraoke.id
+                        id: newKaraoke.id,
+                        placeId: payload.place_id,
+                        roadAddress: payload.road_address,
+                        name: payload.place_name,
+                        address: payload.address_name,
+                        phone: payload.phone,
+                        longitude: payload.x,
+                        latitude: payload.y,
+                        url: payload.place_url ,
+                        distance: Number(payload.distance)
                     })
                 }
                 data.total_cnt++;
