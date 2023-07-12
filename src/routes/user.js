@@ -29,17 +29,10 @@ router.get('/', checkAccessToken(true), async (req, res) => {
 router.put('/device', checkAccessToken(true), async (req, res) => {
     try {
         console.log(req);
-        const row = await Device.findOne({ user_id: req.user.id })
-        if (row) {
-            await Device.updateOne({ user_id: req.user.id }, { device_token: req.body.deviceToken })
-        }
-        else {
-            await Device.create({
-                user_id: req.user.id,
-                device_token: req.body.deviceToken
-            })
-        }
-
+        await Device.create({
+            user_id: req.user.id,
+            device_token: req.body.deviceToken
+        })
         return res.status(200).json({
             success: true
         })

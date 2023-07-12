@@ -54,8 +54,8 @@ io.on('connection', function(socket){
     const { receiverId, senderId, senderName, senderProfileImage, msg, roomNumber, timestamp } = messageData;
     console.log("Message ", msg);
     console.log("보내는 사람 : ", senderName);
-    const item = await Device.findOne({ user_id: receiverId })
-    console.log(item)
+    const list = await Device.find({ user_id: receiverId })
+    console.log(list)
     const message = {
       data: {
         title: '알림 제목',
@@ -68,7 +68,7 @@ io.on('connection', function(socket){
         senderProfileImage: senderProfileImage || "",
         timestamp: String(timestamp)
       },
-      token: item.device_token,
+      registration_ids: list.map(item => item.device_token),
     }
 
     admin
