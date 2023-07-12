@@ -57,10 +57,6 @@ io.on('connection', function(socket){
     const item = await Device.findOne({ user_id: receiverId })
     console.log(item)
     const message = {
-      notification: {
-        title: '알림 제목',
-        body: '알림 본문'
-      },
       data: {
         title: '알림 제목',
         body: '알림 본문',
