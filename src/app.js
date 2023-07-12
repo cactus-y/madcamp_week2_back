@@ -62,6 +62,8 @@ io.on('connection', function(socket){
         body: '알림 본문'
       },
       data: {
+        title: '알림 제목',
+        body: '알림 본문',
         message: msg,
         senderName,
         roomNumber,
