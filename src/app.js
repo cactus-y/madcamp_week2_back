@@ -51,7 +51,7 @@ io.on('connection', function(socket){
   //메세지 입력하면 서버 로그에 이거뜸
   socket.on('newMessage', async (data) => {
     const messageData = JSON.parse(data)
-    const { receiverId, senderId, senderName, senderProfileImage, msg, roomNumber } = messageData;
+    const { receiverId, senderId, senderName, senderProfileImage, msg, roomNumber, timestamp } = messageData;
     console.log("Message ", msg);
     console.log("보내는 사람 : ", senderName);
     const item = await Device.findOne({ user_id: receiverId })
@@ -68,6 +68,7 @@ io.on('connection', function(socket){
         receiverId,
         senderId,
         senderProfileImage: senderProfileImage || "",
+        timestamp: String(timestamp)
       },
       token: item.device_token,
     }
